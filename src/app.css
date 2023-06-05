@@ -1,0 +1,58 @@
+body {
+  font-family: Gotham, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 32px;
+  line-height: 42px;
+  user-select: none;
+  overflow: hidden;
+  height: 100vh;
+  margin: 0;
+  color: #2d2d2d;
+}
+
+#app {
+  overflow: auto;
+  height: 100%;
+  background-image: linear-gradient(
+       90deg,
+       transparent 0px,
+       transparent 16px,
+       #bdbdbd 16px,
+       #bdbdbd 17px,
+       transparent 17px,
+       transparent calc(10% + 16px)
+  );
+  padding: 16px;
+  background-size: calc(10% - (32px / 10));
+  white-space: nowrap;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.stack-title-leave-active, .stack-title-enter-active {
+  transition-property: opacity, transform, max-height;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+
+.stack-title-leave-active {
+  max-height: 150px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stack-title-enter, .stack-title-leave-to, .stack-title-enter-active {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.stack-title-enter-to, .stack-title-leave {
+  max-height: 150px;
+  opacity: 1;
+  transform: translateY(0);
+}
