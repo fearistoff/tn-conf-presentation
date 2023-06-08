@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 
 interface ITask {
   title: string;
@@ -15,9 +15,16 @@ interface IStack {
 }
 
 interface IStep {
-  scroll?: number;
-  focusTask?: string;
-  focusStack?: string;
+  scroll: number;
+  focusTask: string;
+  unBlur: string[];
+  holdFocus: boolean;
+  slide: number;
+}
+
+interface ISlide {
+  title: string;
+  text: string;
 }
 
 export default defineComponent({
@@ -295,8 +302,12 @@ export default defineComponent({
         ],
       },
     ]);
-    const scroll = ref<number>(0);
-    const focusItem = ref<{ stack?: string; task?: string }>({});
+    const focusId = ref<string>("");
+    const focusHoldId = ref<string>("");
+    const unBlurId = ref<string[]>([]);
+    const devMode = ref<boolean>(false);
+    const slideId = ref<number>(-1);
+
     const overallStages = [
       {
         title: "Вычитка аналитики",
@@ -328,10 +339,13 @@ export default defineComponent({
       },
       {
         title: "Отдача тегов",
-        length: 4,
+        length: 2,
       },
     ];
-
+    const overallStagesLength = overallStages.reduce(
+      (value, current) => value + current.length,
+      0
+    );
     const repeatAreas = [
       {
         start: 25,
@@ -350,43 +364,110 @@ export default defineComponent({
         length: 4,
       },
     ];
-
-    let currentStep = 1;
-
+    let currentStep = 0;
     const steps: IStep[] = [
       {
-        scroll: 100,
+        slide: 0,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 0,
+        focusTask: "task-2-1",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 4,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 4,
+        focusTask: "task-3-4",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 8,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: -1,
+        scroll: 8,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: ["task-3-5", "task-3-6"],
+      },
+      {
+        slide: -1,
+        scroll: 12,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: 1,
+        scroll: 12,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+    ];
+    const app = document.getElementById("app")!;
+    const width = app.clientWidth - 32;
+    const slideList: ISlide[] = [
+      {
+        title: "",
+        text: "",
+      },
+      {
+        title: "<span class='accent'>Какой-то</span> заголовок",
+        text: "И какой-то текст, которого много я руками не напишу...",
       },
     ];
 
-    const app = document.getElementById("app")!;
-    const width = app.clientWidth - 32;
-
     onMounted(() => {
-      document.getElementById("app")?.addEventListener("scroll", scrollHandler);
+      getDevMode();
+      processStep();
+      setTimeout(() => {
+        app.classList.add("animation");
+      }, 100);
+      document.addEventListener("keyup", keyUpEventHandler);
     });
 
+    const currentSlide = computed<ISlide | null>(() =>
+      slideId.value > 0 ? slideList[slideId.value] || null : null
+    );
+
     const next = () => {
-      if (currentStep < steps.length) {
+      if (currentStep < steps.length - 1) {
         currentStep++;
-        processStep(steps[currentStep - 1]);
+        processStep();
       }
     };
 
     const back = () => {
-      if (currentStep > 1) {
+      if (currentStep > 0) {
         currentStep--;
+        processStep();
       }
-    };
-
-    const makeScroll = (left: number) => {
-      left = (left / 100) * width;
-      app.scrollTo({ left, behavior: "smooth" });
-    };
-
-    const scrollHandler = () => {
-      scroll.value = app.scrollLeft;
-      app.style.backgroundPositionX = "-" + scroll.value + "px";
     };
 
     const scrollInto = (event: PointerEvent) => {
@@ -399,45 +480,112 @@ export default defineComponent({
       }
     };
 
-    const processStep = (step: IStep) => {
+    const processStep = () => {
+      const step = steps[currentStep];
       if (step.focusTask) {
-        focusItem.value.task = step.focusTask;
+        if (step.holdFocus) {
+          focusHoldItem(step.focusTask);
+        } else {
+          focusItem(step.focusTask);
+        }
       }
-      if (step.focusStack) {
-        focusItem.value.stack = step.focusStack;
+      if (step.unBlur) {
+        unBlurItem(step.unBlur);
       }
-      if (step.scroll) {
-        makeScroll(step.scroll);
+      if (step.scroll || step.scroll === 0) {
+        scrollTo(step.scroll);
+      }
+      setSlideId(step.slide);
+    };
+
+    const focusItem = (id: string) => {
+      if (!focusId.value) {
+        focusId.value = id;
+        setTimeout(() => {
+          focusId.value = "";
+        }, 1000);
       }
     };
 
-    const test = () => {
-      if (stackList.value.length > 5) {
-        stackList.value.splice(-1, 1);
+    const focusHoldItem = (id: string) => {
+      if (!focusHoldId.value || focusHoldId.value !== id) {
+        focusHoldId.value = id;
+      } else if (focusHoldId.value === id) {
+        focusHoldId.value = "";
+      }
+    };
+
+    const unBlurItem = (idList: string[]) => {
+      unBlurId.value = idList;
+    };
+
+    const scrollTo = (position: number | string) => {
+      if (typeof position === "number") {
+        app.scrollTo({ left: position * (width / 10), behavior: "smooth" });
       } else {
-        stackList.value.push({
-          title: "",
-          color: "#662483",
-          tasks: [
-            {
-              title: "Ответы на вопросы по следующим сторям Аналитика",
-              length: 350,
-              pause: 20,
-            },
-          ],
+        document.getElementById(position)?.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "center",
         });
+      }
+    };
+
+    const taskClickHandler = (id: string) => {
+      if (devMode.value) {
+        navigator.clipboard.writeText(id);
+      } else {
+        focusHoldItem(id);
+        scrollTo(id);
+      }
+    };
+
+    const getDevMode = () => {
+      devMode.value = !!localStorage.getItem("tn-conf-presentation__dev-mode");
+    };
+
+    const toggleDevMode = () => {
+      if (devMode.value) {
+        localStorage.removeItem("tn-conf-presentation__dev-mode");
+      } else {
+        localStorage.setItem("tn-conf-presentation__dev-mode", "true");
+      }
+
+      devMode.value = !devMode.value;
+    };
+
+    const setSlideId = (id: number) => {
+      slideId.value = id;
+    };
+
+    const keyUpEventHandler = (event: KeyboardEvent) => {
+      console.log(event.key);
+      if (["ArrowRight", " "].includes(event.key)) {
+        next();
+      } else if (["ArrowLeft", "Backspace"].includes(event.key)) {
+        back();
       }
     };
 
     return {
       stackList,
-      focusItem,
       overallStages,
       repeatAreas,
-      test,
+      focusId,
+      focusHoldId,
+      unBlurId,
+      devMode,
+      overallStagesLength,
+      width,
+      slideId,
+      currentSlide,
+      toggleDevMode,
+      taskClickHandler,
+      unBlurItem,
+      scrollTo,
+      focusHoldItem,
+      focusItem,
       scrollInto,
-      back,
-      next,
     };
   },
 });

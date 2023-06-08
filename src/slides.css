@@ -1,0 +1,113 @@
+.title-slide {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #ffffff;
+  padding: 5vw;
+  background-image: url("~@/assets/images/background-image.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right 5vw center;
+}
+
+.title-slide::after {
+  content: "";
+  background-image: url("~@/assets/images/tages-logo.svg");
+  width: 24vw;
+  height: 24vw;
+  position: absolute;
+  top: 5vw;
+  left: 5vw;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.title-slide__title {
+  font-size: 4vw;
+  line-height: 6vw;
+  color: #f65700;
+  margin: 2vw 800px 0 0;
+}
+
+.title-slide__text {
+  font-size: 2.5vw;
+  line-height: 3.25vw;
+  white-space: initial;
+  margin: 2vw 800px 0 0;
+}
+
+.title-slide__text_speakers {
+  margin: 15vw 800px 0 0;
+}
+
+.accent {
+  color: #f65700;
+}
+
+.animation .fade-leave-active, .animation .fade-enter-active {
+  transition: opacity .3s linear;
+}
+
+.fade-leave-active {
+  opacity: 1;
+}
+
+.fade-enter, .fade-leave-to, .fade-enter-active {
+  opacity: 0;
+}
+
+.fade-enter-to, .fade-leave {
+  opacity: 1;
+}
+
+/* common slide */
+
+.slide-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #ffffff;
+  padding: 5vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right 5vw center;
+}
+
+.slide-container:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: .2;
+  background-image: url("~@/assets/images/slide-background.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.slide-container:after {
+  content: "";
+  background-image: url("~@/assets/images/tages-logo.svg");
+  position: absolute;
+  top: 0;
+  bottom: 5vw;
+  right: 0;
+  left: 0;
+  background-size: 12vw;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.slide-container h1 {
+  color: #f65700;
+}
+
+.slide-container h1 .accent {
+  color: initial;
+}
