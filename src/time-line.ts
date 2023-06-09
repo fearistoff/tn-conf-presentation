@@ -25,6 +25,7 @@ interface IStep {
 interface ISlide {
   title: string;
   text: string;
+  final?: true;
 }
 
 export default defineComponent({
@@ -429,6 +430,20 @@ export default defineComponent({
         holdFocus: false,
         unBlur: [],
       },
+      {
+        slide: -1,
+        scroll: 57,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
+      {
+        slide: 2,
+        scroll: 57,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+      },
     ];
     const app = document.getElementById("app")!;
     const width = app.clientWidth - 32;
@@ -440,6 +455,11 @@ export default defineComponent({
       {
         title: "<span class='accent'>Какой-то</span> заголовок",
         text: "И какой-то текст, которого много я руками не напишу...",
+      },
+      {
+        title: "Спасибо!",
+        text: "Вопросы?",
+        final: true,
       },
     ];
 
@@ -521,7 +541,9 @@ export default defineComponent({
 
     const scrollTo = (position: number | string) => {
       if (typeof position === "number") {
-        app.scrollTo({ left: position * (width / 10), behavior: "smooth" });
+        if (position * (width / 10) !== app.scrollLeft) {
+          app.scrollTo({ left: position * (width / 10), behavior: "smooth" });
+        }
       } else {
         document.getElementById(position)?.scrollIntoView({
           behavior: "smooth",
