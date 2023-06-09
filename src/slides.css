@@ -72,9 +72,6 @@
   left: 0;
   background-color: #ffffff;
   padding: 5vw;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right 5vw center;
 }
 
 .slide-container:before {
@@ -91,6 +88,12 @@
   background-size: contain;
 }
 
+.slide-container_final:before {
+  background-size: cover;
+  opacity: 1;
+  background-image: url("~@/assets/images/final-background.jpg");
+}
+
 .slide-container:after {
   content: "";
   background-image: url("~@/assets/images/tages-logo.svg");
@@ -104,10 +107,46 @@
   background-position: center bottom;
 }
 
+.slide-container_final {
+  padding-top: 15vw;
+}
+
+.slide-container_final:after {
+  filter: brightness(20);
+  right: 5vw;
+  background-position: right bottom;
+}
+
 .slide-container h1 {
+  position: relative;
   color: #f65700;
+}
+
+.slide-container_final h1 {
+  color: #ffffff;
 }
 
 .slide-container h1 .accent {
   color: initial;
+}
+
+.slide-container p {
+  position: relative;
+}
+
+.slide-container_final p {
+  position: relative;
+  color: #ffffff;
+}
+
+/* final slide */
+
+.final-slide {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #ffffff;
+  padding: 5vw;
 }

@@ -76,9 +76,9 @@
     <div v-if="slideId === 0" class="title-slide">
       <p class="title-slide__text title-slide__text_speakers">
         Спикеры:
-
         <span class="accent"
-          >Алёна Махальникова, Нилов Александр, Роберт Шарифуллин</span
+          >Алёна Махальникова,<br />Александр Нилов,<br />Роберт
+          Шарифуллин</span
         >
       </p>
       <h1 class="title-slide__title">Процесс Delivery</h1>
@@ -88,7 +88,11 @@
     </div>
   </transition>
   <transition name="fade">
-    <div v-if="currentSlide" class="slide-container">
+    <div
+      v-if="currentSlide"
+      class="slide-container"
+      :class="{ 'slide-container_final': currentSlide.final }"
+    >
       <h1 v-html="currentSlide.title"></h1>
       <p v-html="currentSlide.text"></p>
     </div>
