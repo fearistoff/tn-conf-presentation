@@ -18,7 +18,7 @@
 .stack-title {
   background-color: #ffffff;
   box-shadow: 0 0 4px 4px #ffffff;
-  line-height: 58px;
+  line-height: 2.5vw;
 }
 
 .stack-title,
@@ -183,6 +183,19 @@
 .step {
   width: 10%;
   display: inline-block;
+  margin-top: 2vw;
+}
+
+.overall-stage_number {
+  margin: 0 1vw;
+  color: #bdbdbd;
+}
+
+.logo {
+  position: fixed;
+  bottom: 5vw;
+  right: 5vw;
+  width: 12vw;
 }
 
 @keyframes Rotate {

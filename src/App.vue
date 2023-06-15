@@ -6,6 +6,7 @@
       backgroundSize: width / 10 + 'px',
     }"
   ></div>
+  <img class="logo" src="./assets/images/tages-logo.svg" alt="tages logo" />
   <transition-group name="stack-title">
     <template v-for="(stack, stackIndex) in stackList" :key="stackIndex">
       <h4 v-if="stack.title" class="stack-title">{{ stack.title }}</h4>
@@ -55,14 +56,12 @@
       {{ os.title }}
     </p>
   </div>
-  <template>
-    <br />
-    <div v-for="index in overallStagesLength" :key="index" class="step">
-      <p class="overall-stage">
-        {{ index }}
-      </p>
-    </div>
-  </template>
+  <br />
+  <div v-for="index in overallStagesLength" :key="index" class="step">
+    <p class="overall-stage overall-stage_number">
+      {{ index }}
+    </p>
+  </div>
   <div
     v-for="repeat in repeatAreas"
     :key="repeat.start"
@@ -76,10 +75,10 @@
     <div v-if="slideId === 0" class="title-slide">
       <p class="title-slide__text title-slide__text_speakers">
         Спикеры:
-        <span class="accent"
-          >Алёна Махальникова,<br />Александр Нилов,<br />Роберт
-          Шарифуллин</span
-        >
+        <span class="accent">Алёна Махальникова</span>,<br /><span
+          class="accent"
+          >Александр Нилов</span
+        >,<br /><span class="accent">Роберт Шарифуллин</span>
       </p>
       <h1 class="title-slide__title">Процесс Delivery</h1>
       <p class="title-slide__text">

@@ -28,18 +28,18 @@
   font-size: 4vw;
   line-height: 6vw;
   color: #f65700;
-  margin: 2vw 800px 0 0;
+  margin: 2vw 39vw 0 0;
 }
 
 .title-slide__text {
   font-size: 2.5vw;
   line-height: 3.25vw;
   white-space: initial;
-  margin: 2vw 800px 0 0;
+  margin: 2vw 39vw 0 0;
 }
 
 .title-slide__text_speakers {
-  margin: 15vw 800px 0 0;
+  margin: 15vw 39vw 0 0;
 }
 
 .accent {
@@ -112,7 +112,7 @@
 }
 
 .slide-container_final:after {
-  filter: brightness(20);
+  filter: grayscale(2) brightness(20);
   right: 5vw;
   background-position: right bottom;
 }
