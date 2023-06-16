@@ -47,9 +47,6 @@
             'task-container_blur':
               unBlurId.length &&
               !unBlurId.includes(`task-${stackIndex}-${taskIndex}`),
-            'task-container_hidden':
-              !(showHiddenTasks || freeMode) && task.hidden,
-            'task-container_hidden-visible': task.hidden,
           }"
           @click="taskClickHandler(`task-${stackIndex}-${taskIndex}`)"
         >
@@ -90,15 +87,13 @@
     <div v-if="slideId === 0" class="title-slide">
       <p class="title-slide__text title-slide__text_speakers">
         Спикеры:
-        <span class="accent">Алёна Махальникова</span>,<br /><span
+        <span class="accent"><br />Алёна Махальникова</span><br /><span
           class="accent"
           >Александр Нилов</span
-        >,<br /><span class="accent">Роберт Шарифуллин</span>
+        ><br /><span class="accent">Роберт Шарифуллин</span>
       </p>
       <h1 class="title-slide__title">Процессы Delivery</h1>
-      <p class="title-slide__text">
-        Закулисье разработки или как готовятся релизы
-      </p>
+      <p class="title-slide__text">Релиз, разработка, тестирование</p>
     </div>
   </transition>
   <transition name="fade">
@@ -122,28 +117,26 @@
     <div v-if="freeMode" class="slide-list-container">
       <button
         class="slide-item"
-        v-for="(_, slideIndex) in slideList"
+        v-for="(_, slideIndex) in slides"
         :key="slideIndex"
         @click="setSlideId(slideIndex)"
       >
         {{
           slideIndex === 0
             ? "S"
-            : slideIndex === slideList.length - 1
+            : slideIndex === slides.length - 1
             ? "F"
             : slideIndex + 1
         }}
       </button>
-      <button class="slide-item" @click="setSlideId(-1)">N</button>
+      <button class="slide-item" @click="setSlideId(-1)">X</button>
     </div>
   </transition>
 </template>
 
-<script lang="ts" src="./time-line.ts"></script>
+<script lang="ts" src="./app.ts"></script>
 
 <style src="./app.css" lang="css"></style>
-
-<style lang="css" src="./time-line.css"></style>
 
 <style lang="css" src="./slides.css"></style>
 
