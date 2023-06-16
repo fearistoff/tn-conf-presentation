@@ -10,6 +10,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right 5vw center;
+  z-index: 2;
 }
 
 .title-slide::after {
@@ -72,6 +73,7 @@
   left: 0;
   background-color: #ffffff;
   padding: 5vw;
+  z-index: 2;
 }
 
 .slide-container:before {
@@ -94,35 +96,18 @@
   background-image: url("~@/assets/images/final-background.jpg");
 }
 
-.slide-container:after {
-  content: "";
-  background-image: url("~@/assets/images/tages-logo.svg");
-  position: absolute;
-  top: 0;
-  bottom: 5vw;
-  right: 0;
-  left: 0;
-  background-size: 12vw;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-}
-
 .slide-container_final {
   padding-top: 15vw;
 }
 
-.slide-container_final:after {
-  filter: grayscale(2) brightness(20);
-  right: 5vw;
-  background-position: right bottom;
-}
-
 .slide-container h1 {
-  position: relative;
   color: #f65700;
+  margin: 0;
+  line-height: 3.5vw;
 }
 
 .slide-container_final h1 {
+  position: relative;
   color: #ffffff;
 }
 
@@ -130,13 +115,81 @@
   color: initial;
 }
 
-.slide-container p {
+.slide-container__body {
+  margin: 2vw 0 0;
   position: relative;
+}
+
+.slide-container__body_fill {
+  height: calc(100vh - 15.5vw);
+}
+
+.slide-container__body_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+.slide-container img {
+  height: 50vh;
+  border-radius: 16px;
+  margin: 1.5vw;
+  box-shadow: 8px 8px 16px 8px #2d2d2d20;
+}
+
+.slide-container img.inner-shadow {
+  box-shadow: none;
+}
+
+.slide-container__body li {
+  margin: .8vw 0;
+}
+
+.slide-container__body img.separate {
+  position: absolute;
+}
+
+.slide-container__body img.separate:first-child {
+  top: 0;
+  left: 0;
+}
+
+.slide-container__body img.separate:last-child {
+  bottom: 0;
+  right: 0;
 }
 
 .slide-container_final p {
   position: relative;
   color: #ffffff;
+}
+
+.formula {
+  font-size: 3vw;
+  margin: 0;
+  text-align: center;
+}
+
+.formula + .formula {
+  margin-top: 3vw;
+}
+
+sub {
+  font-size: .7em;
+}
+
+.small-margin {
+  margin: .3vw 0;
+}
+
+img.fill-img {
+  height: 100%;
+}
+
+img.fill-width-img {
+  height: unset;
+  width: 100%;
 }
 
 /* final slide */

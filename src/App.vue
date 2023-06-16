@@ -6,7 +6,18 @@
       backgroundSize: width / 10 + 'px',
     }"
   ></div>
-  <img class="logo" src="./assets/images/tages-logo.svg" alt="tages logo" />
+  <transition name="fade">
+    <div v-if="slideId !== -1" class="slide-overlay"></div>
+  </transition>
+  <transition name="fade">
+    <img
+      v-if="slideId !== 0"
+      class="logo"
+      :class="{ logo_final: currentSlide && currentSlide.final }"
+      src="./assets/images/tages-logo.svg"
+      alt="tages logo"
+    />
+  </transition>
   <transition-group name="stack-title">
     <template v-for="(stack, stackIndex) in stackList" :key="stackIndex">
       <h4 v-if="stack.title" class="stack-title">{{ stack.title }}</h4>
@@ -36,6 +47,9 @@
             'task-container_blur':
               unBlurId.length &&
               !unBlurId.includes(`task-${stackIndex}-${taskIndex}`),
+            'task-container_hidden':
+              !(showHiddenTasks || freeMode) && task.hidden,
+            'task-container_hidden-visible': task.hidden,
           }"
           @click="taskClickHandler(`task-${stackIndex}-${taskIndex}`)"
         >
@@ -71,6 +85,7 @@
     }"
     class="repeat-area"
   ></div>
+  <span v-show="!freeMode" id="counter"></span>
   <transition name="fade">
     <div v-if="slideId === 0" class="title-slide">
       <p class="title-slide__text title-slide__text_speakers">
@@ -80,7 +95,7 @@
           >Александр Нилов</span
         >,<br /><span class="accent">Роберт Шарифуллин</span>
       </p>
-      <h1 class="title-slide__title">Процесс Delivery</h1>
+      <h1 class="title-slide__title">Процессы Delivery</h1>
       <p class="title-slide__text">
         Закулисье разработки или как готовятся релизы
       </p>
@@ -93,7 +108,33 @@
       :class="{ 'slide-container_final': currentSlide.final }"
     >
       <h1 v-html="currentSlide.title"></h1>
-      <p v-html="currentSlide.text"></p>
+      <p
+        class="slide-container__body"
+        :class="{
+          'slide-container__body_fill': currentSlide.fill,
+          'slide-container__body_center': currentSlide.center,
+        }"
+        v-html="currentSlide.text"
+      ></p>
+    </div>
+  </transition>
+  <transition name="fade">
+    <div v-if="freeMode" class="slide-list-container">
+      <button
+        class="slide-item"
+        v-for="(_, slideIndex) in slideList"
+        :key="slideIndex"
+        @click="setSlideId(slideIndex)"
+      >
+        {{
+          slideIndex === 0
+            ? "S"
+            : slideIndex === slideList.length - 1
+            ? "F"
+            : slideIndex + 1
+        }}
+      </button>
+      <button class="slide-item" @click="setSlideId(-1)">N</button>
     </div>
   </transition>
 </template>
@@ -105,3 +146,5 @@
 <style lang="css" src="./time-line.css"></style>
 
 <style lang="css" src="./slides.css"></style>
+
+<style lang="css" src="./other.css"></style>
