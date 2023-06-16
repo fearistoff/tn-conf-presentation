@@ -1,0 +1,15 @@
+.slide-list-container {
+  position: fixed;
+  z-index: 9;
+  bottom: 32px;
+  left: 32px;
+}
+
+.slide-item {
+  background-color: #ffffff;
+  color: #2d2d2d;
+  border-radius: 8px;
+  border: 1px solid #f65700;
+  padding: 4px 8px;
+  cursor: pointer;
+}

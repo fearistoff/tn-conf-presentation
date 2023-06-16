@@ -1,4 +1,6 @@
 import { computed, defineComponent, onMounted, ref } from "vue";
+import { CountUp } from "countUp";
+import { Odometer } from "odometer_countup";
 
 interface ITask {
   title: string;
@@ -6,6 +8,7 @@ interface ITask {
   length: number;
   top?: true;
   bottom?: true;
+  hidden?: true;
 }
 
 interface IStack {
@@ -19,13 +22,18 @@ interface IStep {
   focusTask: string;
   unBlur: string[];
   holdFocus: boolean;
+  instantNext?: true;
+  showHidden?: true;
   slide: number;
+  count: number;
 }
 
 interface ISlide {
   title: string;
   text: string;
   final?: true;
+  fill?: true;
+  center?: true;
 }
 
 export default defineComponent({
@@ -42,14 +50,38 @@ export default defineComponent({
             pause: 0,
           },
           {
-            title: "Оценка ёмкости релиза",
+            title: "Оценка емкости релиза",
             length: 1,
+            pause: 0,
+          },
+          {
+            title: "Сборка тегов",
+            length: 2,
+            hidden: true,
+            pause: 12,
+          },
+          {
+            title: "Написание Release Note",
+            length: 2,
+            hidden: true,
+            pause: 0,
+          },
+          {
+            title: "Передача тегов DevOps-инженерам TAGES",
+            length: 2,
+            hidden: true,
+            pause: 0,
+          },
+          {
+            title: "Ведение вычитки аналитики",
+            length: 2,
+            hidden: true,
             pause: 0,
           },
           {
             title: "Коммуникация с QA",
             length: 2,
-            pause: 20,
+            pause: 0,
           },
           {
             title: "Сборка тегов",
@@ -57,17 +89,17 @@ export default defineComponent({
             pause: 18,
           },
           {
-            title: "Написание release note",
+            title: "Написание Release Note",
             length: 2,
             pause: 0,
           },
           {
-            title: "Передача тегов DevOps-инженерам Tages",
+            title: "Передача тегов DevOps-инженерам TAGES",
             length: 2,
             pause: 0,
           },
           {
-            title: "Передача тегов DevOps-инженерам ТехноНиколь",
+            title: "Передача тегов DevOps-инженерам ТЕХНОНИКОЛЬ",
             length: 2,
             pause: 4,
           },
@@ -260,9 +292,21 @@ export default defineComponent({
             pause: 0,
           },
           {
+            title: "Подготовка контрактов",
+            length: 1.5,
+            hidden: true,
+            pause: 0,
+          },
+          {
+            title: "Работа над задачей",
+            length: 4.5,
+            hidden: true,
+            pause: 0,
+          },
+          {
             title: "Коммуникация с QA",
             length: 2,
-            pause: 6,
+            pause: 0,
           },
           {
             title: "Исправление инцидентов",
@@ -307,6 +351,8 @@ export default defineComponent({
     const focusHoldId = ref<string>("");
     const unBlurId = ref<string[]>([]);
     const devMode = ref<boolean>(false);
+    const freeMode = ref<boolean>(false);
+    const showHiddenTasks = ref<boolean>(false);
     const slideId = ref<number>(-1);
 
     const overallStages = [
@@ -373,6 +419,63 @@ export default defineComponent({
         focusTask: "",
         holdFocus: false,
         unBlur: [],
+        count: 10,
+      },
+      {
+        slide: 1,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 22,
+      },
+      {
+        slide: 2,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 38,
+      },
+      {
+        slide: 3,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 49,
+      },
+      {
+        slide: 4,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 21,
+      },
+      {
+        slide: 5,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 20,
+      },
+      {
+        slide: 6,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 33,
+      },
+      {
+        slide: 7,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 40,
       },
       {
         slide: -1,
@@ -380,69 +483,335 @@ export default defineComponent({
         focusTask: "",
         holdFocus: false,
         unBlur: [],
+        instantNext: true,
+        count: 12,
+      },
+      {
+        slide: -1,
+        scroll: 0,
+        focusTask: "task-0-0",
+        holdFocus: false,
+        unBlur: [],
+        count: 322,
+      },
+      {
+        slide: -1,
+        scroll: 2.5,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 54,
+      },
+      {
+        slide: -1,
+        scroll: 2.5,
+        focusTask: "task-3-2",
+        holdFocus: true,
+        unBlur: [],
+        count: 23,
+      },
+      {
+        slide: 9,
+        scroll: 2.5,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 43,
+      },
+      {
+        slide: 9,
+        scroll: 3,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 12,
+      },
+      {
+        slide: -1,
+        scroll: 3,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 99,
+      },
+      {
+        slide: -1,
+        scroll: 3,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: ["task-3-3", "task-4-0"],
+        count: 128,
+      },
+      {
+        slide: -1,
+        scroll: 3,
+        focusTask: "task-3-3",
+        holdFocus: true,
+        unBlur: ["task-3-3", "task-4-0"],
+        count: 362,
+      },
+      {
+        slide: -1,
+        scroll: 3,
+        focusTask: "task-4-0",
+        holdFocus: true,
+        unBlur: ["task-3-3", "task-4-0"],
+        count: 273,
+      },
+      {
+        slide: -1,
+        scroll: 3,
+        focusTask: "",
+        holdFocus: true,
+        unBlur: [],
+        instantNext: true,
+        count: 122,
+      },
+      {
+        slide: -1,
+        scroll: 8,
+        focusTask: "",
+        holdFocus: true,
+        unBlur: [],
+        instantNext: true,
+        count: 3,
+      },
+      {
+        slide: -1,
+        scroll: 8,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: ["task-3-6", "task-3-7"],
+        count: 232,
+      },
+      {
+        slide: -1,
+        scroll: 8,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 212,
+      },
+      {
+        slide: -1,
+        scroll: 15,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 321,
+      },
+      {
+        slide: -1,
+        scroll: 15,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 333,
+      },
+      {
+        slide: -1,
+        scroll: 15,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [
+          "task-2-3",
+          "task-2-4",
+          "task-2-5",
+          "task-2-6",
+          "task-2-7",
+          "task-1-0",
+          "task-1-1",
+          "task-1-2",
+        ],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 15,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        instantNext: true,
+        count: 1250,
       },
       {
         slide: -1,
         scroll: 0,
         focusTask: "task-2-1",
+        holdFocus: true,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: 10,
+        scroll: 0,
+        focusTask: "",
         holdFocus: false,
         unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: 11,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: 12,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: 13,
+        scroll: 0,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 4,
+        scroll: 0,
         focusTask: "",
         holdFocus: false,
         unBlur: [],
+        instantNext: true,
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 4,
-        focusTask: "task-3-4",
+        scroll: 15,
+        focusTask: "",
         holdFocus: false,
         unBlur: [],
+        instantNext: true,
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 8,
-        focusTask: "",
-        holdFocus: false,
+        scroll: 15,
+        focusTask: "task-2-5",
+        holdFocus: true,
         unBlur: [],
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 8,
+        scroll: 15,
         focusTask: "",
-        holdFocus: false,
-        unBlur: ["task-3-5", "task-3-6"],
+        holdFocus: true,
+        unBlur: [],
+        instantNext: true,
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 12,
+        scroll: 15,
         focusTask: "",
-        holdFocus: false,
-        unBlur: [],
-      },
-      {
-        slide: 1,
-        scroll: 12,
-        focusTask: "",
-        holdFocus: false,
-        unBlur: [],
+        holdFocus: true,
+        unBlur: ["task-0-6", "task-1-2", "task-2-7", "task-3-10"],
+        count: 1250,
       },
       {
         slide: -1,
-        scroll: 57,
+        scroll: 15,
         focusTask: "",
         holdFocus: false,
         unBlur: [],
+        count: 1250,
       },
       {
-        slide: 2,
-        scroll: 57,
+        slide: -1,
+        scroll: 15,
+        focusTask: "",
+        holdFocus: false,
+        showHidden: true,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 23,
         focusTask: "",
         holdFocus: false,
         unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 31,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 37,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 43,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: -1,
+        scroll: 50,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      {
+        slide: 8,
+        scroll: 50,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
+      },
+      // { todo: слайд с бегущими цифрами
+      //   slide: 8,
+      //   scroll: 50,
+      //   focusTask: "",
+      //   holdFocus: false,
+      //   unBlur: [],
+      //   count: 1250,
+      // },
+      {
+        slide: 15,
+        scroll: 50,
+        focusTask: "",
+        holdFocus: false,
+        unBlur: [],
+        count: 1250,
       },
     ];
     const app = document.getElementById("app")!;
@@ -453,8 +822,105 @@ export default defineComponent({
         text: "",
       },
       {
-        title: "<span class='accent'>Какой-то</span> заголовок",
-        text: "И какой-то текст, которого много я руками не напишу...",
+        title: "Темы, затрагиваемые в докладе",
+        text: `<ul>
+<li>Оценка задач</li>
+<li>Планирование релиза</li>
+<li>Управление ресурсами</li>
+<li>Окружения и ветки для разработки</li>
+<li>Виды тестирования</li>
+<li>Расследование инцидентов</li>
+<li>Автотесты</li>
+</ul>`,
+      },
+      {
+        title: "Аналитика и вычитка",
+        text: `<img class="separate" src="${require("@/assets/images/you-track.png")}" alt="Задача в YouTrack"/><img class="separate" src="${require("@/assets/images/git-lab.png")}" alt="МР в GitLab"/>`,
+        fill: true,
+      },
+      {
+        title: "User Story и аналитика",
+        text: `<img src="${require("@/assets/images/formula.png")}" alt="Формула"/>`,
+        center: true,
+      },
+      {
+        title: "Оценка емкости релиза",
+        text: `<p>Из чего складывается релиз:</p>
+<ul>
+<li>Время разработки</li>
+<li>Время тестирования</li>
+<li>Время на подготовку передачи тегов</li>
+</ul>
+<p class="formula">0.5Y<sub>1</sub>+0.5Y<sub>2</sub>+X+Z=время на релиз</p>
+<p>где:</p>
+<ul>
+<li>0.5Y<sub>1</sub> - время на разработку, оцененные User Story;</li>
+<li>0.5Y<sub>2</sub> - тестирование реализованных задач и написание тест-кейса;</li>
+<li>X - время на регресс, у каждого проекта есть минимальное значение;</li>
+<li>Z - константа, время на передачу тегов.</li>
+</li>
+</ul>`,
+      },
+      {
+        title: "Оценка емкости релиза",
+        text: `<p class="formula">0.5*150+0.5*150+<span class="accent">50+2</span></p>
+<p class="formula">202 человеко-часа</p>
+</ul>`,
+        fill: true,
+        center: true,
+      },
+      {
+        title: "Управление ресурсами",
+        text: `<img src="${require("@/assets/images/balance.png")}" alt="Баланс"/>`,
+        center: true,
+      },
+      {
+        title: "Управление ресурсами",
+        text: `<p>Оптимальный формат:</p>
+<p class="small-margin">Analytic</p>
+<p class="small-margin">Backend</p>
+<p class="small-margin">Frontend</p>
+<p class="small-margin">QA</p>
+<p class="small-margin">Release manager</p>
+</ul>`,
+        center: true,
+      },
+      {
+        title: "Как влияет на процесс?",
+        text: `
+<img class="inner-shadow" src="${require("@/assets/images/the-guy.png")}" alt="Парень">
+<p>Маленькая задача</p>
+</ul>`,
+        center: true,
+      },
+      {
+        title: "Git-flow",
+        text: `<img src="${require("@/assets/images/git-flow.png")}" alt="Git-flow">`,
+        center: true,
+      },
+      {
+        title: "Тест-кейс",
+        text: `<img class="fill-img" src="${require("@/assets/images/test-case.png")}" alt="Тест-кейс">`,
+        center: true,
+        fill: true,
+      },
+      {
+        title: "Чек-лист",
+        text: `<img class="fill-img" src="${require("@/assets/images/check-list.png")}" alt="Чек-лист">`,
+        center: true,
+        fill: true,
+      },
+      {
+        title: "Автотесты",
+        text: `<img class="fill-img" src="${require("@/assets/images/autotest-code.png")}" alt="Код Автотестов">`,
+        center: true,
+        fill: true,
+      },
+      {
+        title: "Автотесты",
+        text: `<img class="fill-width-img" src="${require("@/assets/images/autotest-report.png")}" alt="Отчет Автотестов">`,
+        center: true,
+        fill: true,
       },
       {
         title: "Спасибо!",
@@ -462,6 +928,7 @@ export default defineComponent({
         final: true,
       },
     ];
+    let counterElement: CountUp | null = null;
 
     onMounted(() => {
       getDevMode();
@@ -470,6 +937,12 @@ export default defineComponent({
         app.classList.add("animation");
       }, 100);
       document.addEventListener("keyup", keyUpEventHandler);
+      counterElement = new CountUp("counter", 0, {
+        plugin: new Odometer({ duration: 1, lastDigitDelay: 0 }),
+        duration: 3.0,
+        startVal: 0,
+      });
+      counterElement.start();
     });
 
     const currentSlide = computed<ISlide | null>(() =>
@@ -486,7 +959,7 @@ export default defineComponent({
     const back = () => {
       if (currentStep > 0) {
         currentStep--;
-        processStep();
+        processStep(true);
       }
     };
 
@@ -500,22 +973,39 @@ export default defineComponent({
       }
     };
 
-    const processStep = () => {
+    const processStep = (back = false) => {
+      const tempStep = currentStep;
       const step = steps[currentStep];
-      if (step.focusTask) {
-        if (step.holdFocus) {
-          focusHoldItem(step.focusTask);
-        } else {
-          focusItem(step.focusTask);
+      console.log(step);
+      focusHoldItem("");
+      if (step) {
+        if (step.focusTask) {
+          if (step.holdFocus) {
+            focusHoldItem(step.focusTask);
+          } else {
+            focusItem(step.focusTask);
+          }
         }
+        if (step.unBlur) {
+          unBlurItem(step.unBlur);
+        }
+        if (step.scroll || step.scroll === 0) {
+          scrollTo(step.scroll);
+        }
+        if (step.instantNext && !back) {
+          setTimeout(() => {
+            if (tempStep === currentStep) {
+              currentStep++;
+              processStep();
+            }
+          }, 800);
+        }
+        updateCounter(step.count);
+        setSlideId(step.slide);
+        showHiddenTasks.value = !!step.showHidden;
+      } else {
+        currentStep--;
       }
-      if (step.unBlur) {
-        unBlurItem(step.unBlur);
-      }
-      if (step.scroll || step.scroll === 0) {
-        scrollTo(step.scroll);
-      }
-      setSlideId(step.slide);
     };
 
     const focusItem = (id: string) => {
@@ -554,7 +1044,7 @@ export default defineComponent({
     };
 
     const taskClickHandler = (id: string) => {
-      if (devMode.value) {
+      if (!freeMode.value) {
         navigator.clipboard.writeText(id);
       } else {
         focusHoldItem(id);
@@ -577,7 +1067,14 @@ export default defineComponent({
     };
 
     const setSlideId = (id: number) => {
-      slideId.value = id;
+      if (slideId.value !== -1 && slideId.value !== id) {
+        slideId.value = 99;
+        setTimeout(() => {
+          slideId.value = id;
+        }, 150);
+      } else {
+        slideId.value = id;
+      }
     };
 
     const keyUpEventHandler = (event: KeyboardEvent) => {
@@ -586,6 +1083,24 @@ export default defineComponent({
         next();
       } else if (["ArrowLeft", "Backspace"].includes(event.key)) {
         back();
+      } else if (event.key === "Enter") {
+        enableFreeMode();
+      }
+    };
+
+    const updateCounter = (number: number) => {
+      counterElement?.update(number);
+    };
+
+    const enableFreeMode = () => {
+      if (!freeMode.value) {
+        app.style.overflow = "auto";
+        freeMode.value = true;
+        currentStep = 1000;
+        focusHoldItem("");
+        focusItem("");
+        unBlurItem([]);
+        setSlideId(-1);
       }
     };
 
@@ -601,6 +1116,10 @@ export default defineComponent({
       width,
       slideId,
       currentSlide,
+      freeMode,
+      slideList,
+      showHiddenTasks,
+      setSlideId,
       toggleDevMode,
       taskClickHandler,
       unBlurItem,

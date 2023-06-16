@@ -16,9 +16,10 @@
 }
 
 .stack-title {
-  background-color: #ffffff;
-  box-shadow: 0 0 4px 4px #ffffff;
-  line-height: 2.5vw;
+  background-color: #ffffff80;
+  backdrop-filter: blur(4px);
+  z-index: 0;
+  border-radius: 12px;
 }
 
 .stack-title,
@@ -29,6 +30,8 @@
   left: 12px;
   display: inline;
   white-space: normal;
+  line-height: 2.3vw;
+  font-size: 1.9vw;
 }
 
 .stack-task-list-container {
@@ -66,9 +69,10 @@
   position: relative;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition-property: transform, background-color, color, border-color;
+  transition-property: transform, background-color, color, border-color, opacity;
   transition-timing-function: ease;
   transition-duration: .3s;
+  opacity: 1;
 }
 
 .task-container::before {
@@ -109,6 +113,14 @@
 
 .task-container_blur::before {
   border-color: #989898 !important;
+}
+
+.task-container_hidden {
+  opacity: 0;
+}
+
+.task-container_hidden-visible:not(.task-container_hidden) {
+  opacity: .7;
 }
 
 .stack-task-list-container::after {
@@ -196,6 +208,32 @@
   bottom: 5vw;
   right: 5vw;
   width: 12vw;
+  z-index: 3;
+}
+
+.logo_final {
+  filter: grayscale(2) brightness(20);
+}
+
+.slide-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+#counter {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+}
+
+#counter:before {
+  content: "Потрачено времени: ";
+  display: inline;
 }
 
 @keyframes Rotate {
