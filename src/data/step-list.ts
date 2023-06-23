@@ -56,22 +56,6 @@ export default [
     unBlur: [],
     count: 33,
   },
-  {
-    slide: 7,
-    scroll: 0,
-    focusTask: "",
-    holdFocus: false,
-    unBlur: [],
-    count: 40,
-  },
-  {
-    slide: 8,
-    scroll: 0,
-    focusTask: "",
-    holdFocus: false,
-    unBlur: [],
-    count: 40,
-  },
   // todo Alex
   {
     slide: -1,
@@ -108,12 +92,28 @@ export default [
     count: 23,
   },
   {
-    slide: 9,
+    slide: 7,
     scroll: 2.5,
     focusTask: "",
     holdFocus: false,
     unBlur: [],
     count: 43,
+  },
+  {
+    slide: 8,
+    scroll: 3,
+    focusTask: "",
+    holdFocus: false,
+    unBlur: [],
+    count: 12,
+  },
+  {
+    slide: 9,
+    scroll: 3,
+    focusTask: "",
+    holdFocus: false,
+    unBlur: [],
+    count: 12,
   },
   {
     slide: 10,
@@ -139,14 +139,6 @@ export default [
     unBlur: [],
     count: 12,
   },
-  {
-    slide: 13,
-    scroll: 3,
-    focusTask: "",
-    holdFocus: false,
-    unBlur: [],
-    count: 12,
-  },
   // todo robert
   {
     slide: -1,
@@ -166,7 +158,7 @@ export default [
     count: 128,
   },
   {
-    slide: 14,
+    slide: 13,
     scroll: 8,
     focusTask: "",
     holdFocus: true,
@@ -174,7 +166,15 @@ export default [
     count: 128,
   },
   {
-    slide: 5,
+    slide: 6,
+    scroll: 8,
+    focusTask: "",
+    holdFocus: true,
+    unBlur: [],
+    count: 128,
+  },
+  {
+    slide: 14,
     scroll: 8,
     focusTask: "",
     holdFocus: true,
@@ -223,7 +223,7 @@ export default [
   },
   {
     slide: 20,
-    scroll: 8,
+    scroll: 45,
     focusTask: "",
     holdFocus: true,
     unBlur: [],

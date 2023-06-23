@@ -1,6 +1,6 @@
 import { computed, defineComponent, onMounted, ref } from "vue";
-import { CountUp } from "countUp";
-import { Odometer } from "odometer_countup";
+// import { CountUp } from "countUp";
+// import { Odometer } from "odometer_countup";
 import stepList, { IStep } from "./data/step-list";
 import slideList, { ISlide } from "@/data/slide-list";
 
@@ -345,7 +345,7 @@ export default defineComponent({
     const app = document.getElementById("app")!;
     const width = app.clientWidth - 32;
     const slides: ISlide[] = slideList;
-    let counterElement: CountUp | null = null;
+    // let counterElement: CountUp | null = null;
 
     onMounted(() => {
       getDevMode();
@@ -354,12 +354,17 @@ export default defineComponent({
         app.classList.add("animation");
       }, 100);
       document.addEventListener("keyup", keyUpEventHandler);
-      counterElement = new CountUp("counter", 0, {
-        plugin: new Odometer({ duration: 1, lastDigitDelay: 0 }),
-        duration: 3.0,
-        startVal: 0,
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "ArrowLeft"].includes(event.key)) {
+          event.preventDefault();
+        }
       });
-      counterElement.start();
+      // counterElement = new CountUp("counter", 0, {
+      //   plugin: new Odometer({ duration: 1, lastDigitDelay: 0 }),
+      //   duration: 3.0,
+      //   startVal: 0,
+      // });
+      // counterElement.start();
     });
 
     const currentSlide = computed<ISlide | null>(() =>
@@ -417,7 +422,7 @@ export default defineComponent({
             }
           }, 800);
         }
-        updateCounter(step.count);
+        // updateCounter(step.count);
         setSlideId(step.slide);
       } else {
         currentStep--;
@@ -504,9 +509,9 @@ export default defineComponent({
       }
     };
 
-    const updateCounter = (number: number) => {
-      counterElement?.update(number);
-    };
+    // const updateCounter = (number: number) => {
+    //   counterElement?.update(number);
+    // };
 
     const enableFreeMode = () => {
       if (!freeMode.value) {

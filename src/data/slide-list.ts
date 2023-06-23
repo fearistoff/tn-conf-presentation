@@ -16,6 +16,16 @@ export default [
 </ul>`,
   },
   {
+    title: "Практики для управления сроками",
+    text: `<ul>
+<li>планирование релизов</li>
+<li>вычитка аналитики на новый функционал</li>
+<li>оценка задач</li>
+<li>вычисление объема релиза</li>
+</ul>`,
+    fill: true,
+  },
+  {
     title: "Структура релиза",
     text: `<img class="no-margin" src="${require("@/assets/images/release-structure.png")}" alt="Задача в YouTrack"/>`,
     center: true,
@@ -27,7 +37,7 @@ export default [
     fill: true,
   },
   {
-    title: "User Story и аналитика",
+    title: "Оценка по трем точкам",
     text: `<img class="inner-shadow" style="height: unset" src="${require("@/assets/images/formula.png")}" alt="Формула"/>
 <p>E - время в часах<br>
 О - оптимистичная оценка<br>
@@ -38,12 +48,7 @@ R - реалистичная оценка<br>
   },
   {
     title: "Оценка емкости релиза",
-    text: `<p>Из чего складывается релиз:</p>
-<ul>
-<li>Время разработки</li>
-<li>Время тестирования</li>
-<li>Время на подготовку передачи тегов</li>
-</ul>
+    text: `
 <p class="formula">0.5Y<sub>1</sub> + 0.5Y<sub>2</sub> + X + Z ≈ время на релиз</p>
 <p>где:</p>
 <ul>
@@ -52,15 +57,9 @@ R - реалистичная оценка<br>
 <li>X - время на регресс, у каждого проекта есть минимальное значение</li>
 <li>Z - константа, время на передачу тегов</li>
 </li>
-</ul>`,
-  },
-  {
-    title: "Оценка емкости релиза",
-    text: `<p class="formula">0.5×150 + 0.5×150 + <span class="accent">50 + 2</span></p>
-<p class="formula">202 человеко-часа</p>
-</ul>`,
-    fill: true,
-    center: true,
+</ul>
+<p class="formula">0.5×150 + 0.5×150 + <span class="accent">50 + 2</span></p>
+<p class="formula">202 человеко-часа</p>`,
   },
   //   {
   //     title: "Управление ресурсами",
@@ -108,6 +107,11 @@ R - реалистичная оценка<br>
   },
   {
     title: "Окружения",
+    text: `<img class="no-margin enlarged" src="${require("@/assets/images/environment-technologies.png")}" alt="Git-flow">`,
+    center: true,
+  },
+  {
+    title: "Окружения",
     text: `<ul>
 <li>Простои разработчиков → параллельная разработка</li>
 <li>Одно окружение разработки → story-окружения</li>
@@ -123,52 +127,59 @@ R - реалистичная оценка<br>
   },
   {
     title: "",
-    text: `<h2>Чем больше наша ИС и чем дольше она разрабатывается,<br>тем больше времени нам требуется на регрессионное тестирование</h2>`,
+    text: `<h2>Чем больше наша ИС и чем дольше она разрабатывается,<br>тем больше времени нам требуется на регрессионное тестирование.</h2>`,
     fill: true,
     center: true,
   },
   {
     title: "Видео прохождения end-to-end",
-    text: `<video muted autoplay class="no-margin enlarged" poster="${require("@/assets/images/autotest.jpg")}" src="${require("@/assets/videos/autotest.mp4")}">`,
+    text: `<img src="${require("@/assets/images/autotest.jpg")}" alt="Видео прохождения end-to-end">`,
     center: true,
     fill: true,
   },
   {
-    title: "",
+    title: "Видео прохождения end-to-end",
+    text: `<video muted autoplay loop class="no-margin full-screen" poster="${require("@/assets/images/autotest.jpg")}" src="${require("@/assets/videos/autotest.mp4")}">`,
+    center: true,
+    fill: true,
+  },
+  {
+    title: "Отчет автотеста бэкенда",
     text: `<img class="no-margin enlarged" src="${require("@/assets/images/autotest-report.png")}" alt="Тест-кейс">`,
     center: true,
     fill: true,
   },
   {
-    title: "",
+    title: "Отчет автотеста фронтенда",
     text: `<img class="no-margin enlarged" src="${require("@/assets/images/front-autotest-report.png")}" alt="Тест-кейс">`,
     center: true,
     fill: true,
   },
   {
-    title: "",
-    text: `<img class="no-margin" src="${require("@/assets/images/smoke.png")}" alt="Тест-кейс">`,
+    title: "Smoke тестирование",
+    text: `<img class="no-margin enlarged" src="${require("@/assets/images/smoke.png")}" alt="Тест-кейс">`,
     center: true,
     fill: true,
   },
   {
-    title: "",
-    text: `<img class="no-margin" src="${require("@/assets/images/incident.png")}" alt="Тест-кейс">`,
+    title: "Инцидент",
+    text: `<img class="no-margin enlarged" src="${require("@/assets/images/incident.png")}" alt="Тест-кейс">`,
     center: true,
     fill: true,
   },
   {
     title: "Выводы",
     text: `<ul>
-<li>тестирование улучшает продукт</li>
-<li>автотесты мастхэв</li>
-<li>большая ИС = большой Регресс</li>
-<li>автотесты помогают сократить время регресса</li>
+<li>Тестирование улучшает продукт</li>
+<li>Чем масштабнее ИС, тем больше времени уходит на регресс тестирование</li>
+<li>Автотесты необходимы для оптимизации времени на регресс тестирование</li>
 </ul>`,
   },
   {
     title: "Спасибо!",
-    text: "Вопросы?",
+    text: `<p>Алёна Махальникова - alena.mahalnikova@tages.ru</p>
+<p>Александр Нилов - alexander.nilov@tages.ru</p>
+<p>Роберт Шарифуллин - robert.sharifullin@tages.ru</p>`,
     final: true,
   },
 ] as ISlide[];

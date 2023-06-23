@@ -118,13 +118,11 @@
 .slide-container__body {
   margin: 2vw 0 0;
   position: relative;
-  overflow: auto;
   text-overflow: ellipsis;
   white-space: normal;
 }
 
 .slide-container__body h2 {
-  /*color: #f65700;*/
   color: initial;
   margin: 0;
   line-height: 3.5vw;
@@ -156,7 +154,8 @@
 }
 
 .slide-container__body li {
-  margin: .8vw 0;
+  margin: 0;
+  height: calc((100vw - 32px) / 44);;
 }
 
 .slide-container__body img.separate {
@@ -211,7 +210,14 @@ img.fill-width-img.limit, video.fill-width-img.limit {
 }
 
 img.enlarged, video.enlarged {
-  height: 70vh;
+  height: 64vh;
+}
+
+.slide-number {
+  position: absolute;
+  bottom: 5vw;
+  left: 5vw;
+  color: #f65700;
 }
 
 /* final slide */
