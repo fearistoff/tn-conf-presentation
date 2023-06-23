@@ -291,6 +291,14 @@ body {
   margin: 0 !important;
 }
 
+.slide-container video.full-screen {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  height: 100vh;
+  transform: translateX(-50%);
+}
+
 li::marker {
   color: #f65700;
 }

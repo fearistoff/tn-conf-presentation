@@ -82,7 +82,7 @@
     }"
     class="repeat-area"
   ></div>
-  <span v-show="!freeMode" id="counter"></span>
+  <!--  <span v-show="!freeMode" id="counter"></span>-->
   <transition name="fade">
     <div v-if="slideId === 0" class="title-slide">
       <p class="title-slide__text title-slide__text_speakers">
@@ -111,6 +111,9 @@
         }"
         v-html="currentSlide.text"
       ></p>
+      <span v-if="!currentSlide.final" class="slide-number">{{
+        slideId + 1
+      }}</span>
     </div>
   </transition>
   <transition name="fade">
