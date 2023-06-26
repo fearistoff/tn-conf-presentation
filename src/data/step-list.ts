@@ -166,14 +166,6 @@ export default [
     count: 128,
   },
   {
-    slide: 6,
-    scroll: 8,
-    focusTask: "",
-    holdFocus: true,
-    unBlur: [],
-    count: 128,
-  },
-  {
     slide: 14,
     scroll: 8,
     focusTask: "",
@@ -223,7 +215,7 @@ export default [
   },
   {
     slide: 20,
-    scroll: 45,
+    scroll: 8,
     focusTask: "",
     holdFocus: true,
     unBlur: [],

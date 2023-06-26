@@ -59,7 +59,7 @@ R - реалистичная оценка<br>
 </li>
 </ul>
 <p class="formula">0.5×150 + 0.5×150 + <span class="accent">50 + 2</span></p>
-<p class="formula">202 человеко-часа</p>`,
+<p class="formula">202 часа</p>`,
   },
   //   {
   //     title: "Управление ресурсами",
@@ -126,6 +126,21 @@ R - реалистичная оценка<br>
     fill: true,
   },
   {
+    title: "Оценка емкости релиза",
+    text: `
+<p class="formula">0.5Y<sub>1</sub> + 0.5Y<sub>2</sub> + X + Z ≈ время на релиз</p>
+<p>где:</p>
+<ul>
+<li>0.5Y<sub>1</sub> - время на разработку, оцененные User Story</li>
+<li>0.5Y<sub>2</sub> - тестирование реализованных задач и написание тест-кейсов</li>
+<li>X - время на регресс, у каждого проекта есть минимальное значение</li>
+<li>Z - константа, время на передачу тегов</li>
+</li>
+</ul>
+<p class="formula">0.5×150 + 0.5×150 + <span class="accent">50 + 2</span></p>
+<p class="formula">202 часа</p>`,
+  },
+  {
     title: "",
     text: `<h2>Чем больше наша ИС и чем дольше она разрабатывается,<br>тем больше времени нам требуется на регрессионное тестирование.</h2>`,
     fill: true,
@@ -152,12 +167,6 @@ R - реалистичная оценка<br>
   {
     title: "Отчет автотеста фронтенда",
     text: `<img class="no-margin enlarged" src="${require("@/assets/images/front-autotest-report.png")}" alt="Тест-кейс">`,
-    center: true,
-    fill: true,
-  },
-  {
-    title: "Smoke тестирование",
-    text: `<img class="no-margin enlarged" src="${require("@/assets/images/smoke.png")}" alt="Тест-кейс">`,
     center: true,
     fill: true,
   },
