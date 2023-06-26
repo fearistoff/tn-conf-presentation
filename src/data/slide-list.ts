@@ -154,7 +154,7 @@ R - реалистичная оценка<br>
   },
   {
     title: "Видео прохождения end-to-end",
-    text: `<video muted autoplay loop class="no-margin full-screen" poster="${require("@/assets/images/autotest.jpg")}" src="${require("@/assets/videos/autotest.mp4")}">`,
+    text: `<video muted autoplay class="no-margin full-screen" poster="${require("@/assets/images/autotest.jpg")}" src="${require("@/assets/videos/autotest.mp4")}">`,
     center: true,
     fill: true,
   },
