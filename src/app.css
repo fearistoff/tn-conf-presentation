@@ -303,6 +303,14 @@ li::marker {
   color: #f65700;
 }
 
+.hidden-video {
+  position: fixed;
+  width: 0;
+  height: 0;
+  bottom: 0;
+  right: 0;
+}
+
 @keyframes Rotate {
   from {
     transform: scaleY(-1) translateX(-50%) rotate(0deg);

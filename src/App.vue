@@ -82,6 +82,13 @@
     }"
     class="repeat-area"
   ></div>
+  <video
+    muted
+    autoplay
+    class="hidden-video"
+    :poster="require('@/assets/images/autotest.jpg')"
+    :src="require('@/assets/videos/autotest.mp4')"
+  />
   <!--  <span v-show="!freeMode" id="counter"></span>-->
   <transition name="fade">
     <div v-if="slideId === 0" class="title-slide">
